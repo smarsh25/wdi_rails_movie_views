@@ -16,7 +16,7 @@
 /tmp
 
 # Ignore other unneeded files
-database.yml
+# database.yml (although we ignored this in Spencers lesson, it is need for Markus's lesson)
 doc/
 *.swp
 *~
