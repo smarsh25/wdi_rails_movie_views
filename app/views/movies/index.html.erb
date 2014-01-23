@@ -3,7 +3,7 @@
 
   <!-- <a href="/movies/<%#= movie['imdbID'] %>"><%#= movie["Title"] %></a> - <%#= movie["Year"] %></br> -->
 
-  <%= link_to movie["title"], movie_path(movie['imdbID']) %> - <%= movie["year"] %></br>
+  <%= link_to movie["Title"], movie_path(movie['imdbID']) %> - <%= movie["Year"] %></br>
 
   <%= button_to "delete", {controller: :movies, action: :destroy, id: movie["imdbID"] }, :method => :delete %>
   <br>

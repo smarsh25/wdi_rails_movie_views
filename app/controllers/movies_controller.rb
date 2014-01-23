@@ -1,14 +1,13 @@
 class MoviesController < ApplicationController
 
   @@movie_db = [
-          {"title"=>"The Matrix", "year"=>"1999", "imdbID"=>"tt0133093", "Type"=>"movie"},
-          {"title"=>"The Matrix Reloaded", "year"=>"2003", "imdbID"=>"tt0234215", "Type"=>"movie"},
-          {"title"=>"The Matrix Revolutions", "year"=>"2003", "imdbID"=>"tt0242653", "Type"=>"movie"}]
+          {"Title"=>"The Matrix", "Year"=>"1999", "imdbID"=>"tt0133093", "Type"=>"movie"},
+          {"Title"=>"The Matrix Reloaded", "Year"=>"2003", "imdbID"=>"tt0234215", "Type"=>"movie"},
+          {"Title"=>"The Matrix Revolutions", "Year"=>"2003", "imdbID"=>"tt0242653", "Type"=>"movie"}]
 
   # route: GET    /movies(.:format)
   def index
     @movies = @@movie_db
-
     respond_to do |format|
       format.html
       format.json { render :json => @@movie_db }
@@ -36,7 +35,7 @@ class MoviesController < ApplicationController
   #route: # POST   /movies(.:format)
   def create
     # create new movie object from params
-    movie = params.require(:movie).permit(:title, :year)
+    movie = params.require(:movie).permit(:Title, :Year)
     movie["imdbID"] = rand(10000..100000000).to_s
     # add object to movie db
     @@movie_db << movie
@@ -53,9 +52,9 @@ class MoviesController < ApplicationController
     end
 
     #create new movie
-    movie = params.require(:movie).permit(:title, :year)
+    movie = params.require(:movie).permit(:Title, :Year)
     movie['imdbID'] = params[:id]
-
+binding.pry
     @@movie_db << movie
     redirect_to action: :index
     # go to index or show
@@ -71,6 +70,14 @@ class MoviesController < ApplicationController
 
   def search
     search_title = params[:search_title]
+
+    # if no string has been entered, do not do search
+    # NOTE: doing this comparison because was getting 
+    #       wierd results when using empty? or == ""
+    if search_title.length > 0   
+      add_imdb_movies(search_title)
+    end
+
     redirect_to action: :index
   end
 
@@ -88,5 +95,23 @@ class MoviesController < ApplicationController
     return the_movie
   end
 
+  def add_imdb_movies (search_str)
+  
+    # Create a request to OMDB API, search (param is 's') for movie titles
+    search_response = Typhoeus.get("www.omdbapi.com", :params => {:s => search_str})
+
+    # store result in a hash, for better parsing
+    result_hash = JSON.parse(search_response.body)
+
+    # {"Response"=>"False", "Error"=>"Movie not found!"}
+    if result_hash.empty? || result_hash.has_key?("Search") == false 
+      @page_error = true
+    else
+      @page_error = false 
+      # add found movies to psuedo db
+      result_hash["Search"].each { |imdb_movie| @@movie_db << imdb_movie }
+    end
+  binding.pry
+  end
 
 end
