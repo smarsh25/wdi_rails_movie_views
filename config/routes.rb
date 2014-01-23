@@ -2,6 +2,9 @@ Movies::Application.routes.draw do
 
   resources :movies    # generates routes for all standard restful requests 
 
+  # POST - the form (nav bar search) has submitted a post with movie title
+  post '/search', to: "movies#search"     # not RESTFUL
+
   # root 'movies#index'  # resources does not include route (add this line if you want root access)
 
   # I didn't think that was needed (should have been covered in resources. check later.)

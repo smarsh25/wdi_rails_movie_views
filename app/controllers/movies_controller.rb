@@ -69,6 +69,11 @@ class MoviesController < ApplicationController
     redirect_to action: :index
   end
 
+  def search
+    search_title = params[:search_title]
+    redirect_to action: :index
+  end
+
   private   # all methods below this line are private to this class
 
   def get_movie(movie_id)
@@ -82,5 +87,6 @@ class MoviesController < ApplicationController
     end
     return the_movie
   end
+
 
 end
