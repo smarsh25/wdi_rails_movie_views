@@ -54,7 +54,6 @@ class MoviesController < ApplicationController
     #create new movie
     movie = params.require(:movie).permit(:Title, :Year)
     movie['imdbID'] = params[:id]
-binding.pry
     @@movie_db << movie
     redirect_to action: :index
     # go to index or show
@@ -111,7 +110,6 @@ binding.pry
       # add found movies to psuedo db
       result_hash["Search"].each { |imdb_movie| @@movie_db << imdb_movie }
     end
-  binding.pry
   end
 
 end
