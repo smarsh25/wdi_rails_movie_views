@@ -1,6 +1,4 @@
-<h1>Rails Movie App</h1>
-
-
+<h2>Movie List</h2>
 <% @movies.each do |movie| %>
 
   <!-- <a href="/movies/<%#= movie['imdbID'] %>"><%#= movie["Title"] %></a> - <%#= movie["Year"] %></br> -->
@@ -8,8 +6,6 @@
   <%= link_to movie["title"], movie_path(movie['imdbID']) %> - <%= movie["year"] %></br>
 
   <%= button_to "delete", {controller: :movies, action: :destroy, id: movie["imdbID"] }, :method => :delete %>
-  <%= button_to "edit", {controller: :movies, action: :edit, id: movie["imdbID"] }, :method => :get %>
-
   <br>
 
 <% end %>

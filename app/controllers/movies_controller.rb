@@ -18,6 +18,8 @@ class MoviesController < ApplicationController
   # route: # GET    /movies/:id(.:format)
   def show
     @movie = get_movie(params[:id])
+    @on_show_movie_page = true
+    @on_show_movie_id = params[:id]
   end
 
   # route: GET    /movies/new(.:format)
