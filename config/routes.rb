@@ -1,14 +1,18 @@
 Movies::Application.routes.draw do
 
-  root 'movies#index'
+  resources :movies    # generates routes for all standard restful requests 
 
-  get 'movies'  => 'movies#index', as: :movies
-  post 'movies' => 'movies#create'
-  get 'movies/new' => 'movies#new', as: :new_movie
-  get 'movies/:id/edit' => 'movies#edit', as: :edit_movie
-  get 'movies/:id' => 'movies#show', as: :movie
-  patch 'movies/:id' => 'movies#update'
-  delete 'movies/:id' => 'movies#destroy'
+  # root 'movies#index'  # resources does not include route (add this line if you want root access)
+
+  # I didn't think that was needed (should have been covered in resources. check later.)
+
+  # get 'movies'  => 'movies#index', as: :movies
+  # post 'movies' => 'movies#create'
+  # get 'movies/new' => 'movies#new', as: :new_movie
+  # get 'movies/:id/edit' => 'movies#edit', as: :edit_movie
+  # get 'movies/:id' => 'movies#show', as: :movie
+  # patch 'movies/:id' => 'movies#update'
+  # delete 'movies/:id' => 'movies#destroy'
 
 
 
@@ -23,7 +27,6 @@ Movies::Application.routes.draw do
 #            PUT    /movies/:id(.:format)      movies#update
 #            DELETE /movies/:id(.:format)      movies#destroy
 
-  # resources :movies
 
 
 end
