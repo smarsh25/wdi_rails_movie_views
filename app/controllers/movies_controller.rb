@@ -14,6 +14,15 @@ class MoviesController < ApplicationController
       format.xml { render :xml => @@movie_db.to_xml }
     end
   end
+
+  def view_json
+    render :json => @@movie_db
+  end
+
+  def view_xml
+    render :xml => @@movie_db.to_xml
+  end
+
   # route: # GET    /movies/:id(.:format)
   def show
     @movie = get_movie(params[:id])

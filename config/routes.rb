@@ -5,6 +5,9 @@ Movies::Application.routes.draw do
   # POST - the form (nav bar search) has submitted a post with movie title
   post '/search', to: "movies#search"     # not RESTFUL
 
+  get '/view_json', to: "movies#view_json"
+  get '/view_xml', to: "movies#view_xml"
+
   # root 'movies#index'  # resources does not include route (add this line if you want root access)
 
   # I didn't think that was needed (should have been covered in resources. check later.)
